@@ -1,1 +1,1 @@
-Quik Sale
+Quick Sale

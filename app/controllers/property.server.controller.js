@@ -1,5 +1,5 @@
 'use strict';
-var Property = require('./../models/property.server.model.js');
+var Property = require('./../models/property.server.model');
 
 module.exports = {
 
@@ -27,7 +27,7 @@ module.exports = {
   },
 
   getUniqueProperty: function (req, res) {
-    Property.find({_id: req.params.id}, function(err, property) {
+    Property.find({_id: req.params.propertyId}, function(err, property) {
       if(err) {
         res.json(err);
       }
@@ -50,24 +50,23 @@ module.exports = {
   },
 
   updateProperty: function (req, res) {
-    Property.findByIdAndUpdate(req.params.id, req.body, function(err, roperty) {
+    Property.findByIdAndUpdate(req.params.propertyId, req.body, function(err, property) {
       if (err) {
         res.json(err);
       }
       else {
-        res.json(res);
+        res.json(property);
       }
     });
   },
 
   deleteProperty: function (req, res) {
-    Property.remove({_id: req.params.id}, function (err, note) {
+    Property.remove({_id: req.params.propertyId}, function (err, property) {
       if(err) {
         res.json(err);
       }
-
       else {
-        res.json(note);
+        res.json(property);
       }
     });
   }

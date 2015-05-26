@@ -32,7 +32,7 @@ var  PropertySchema = new Schema({
   },
 
   posted_by: {
-    type: Schema.objectId
+    type: Schema.ObjectId
   },
 
   posted_at: {

@@ -13,10 +13,13 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-				'public/lib/bootstrap/dist/css/bootstrap.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				// 'public/lib/bootstrap/dist/css/bootstrap.css',
+				// 'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/materialize/dist/css/materialize.css'
 			],
 			js: [
+				'public/lib/jquery/dist/jquery.js',
+				'public/lib/materialize/dist/js/materialize.js',
 				'public/lib/angular/angular.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.js',

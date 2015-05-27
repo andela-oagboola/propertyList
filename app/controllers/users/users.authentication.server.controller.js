@@ -7,12 +7,51 @@ var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
+	async = require('async'),
+	nodemailer = require('nodemailer'),
+	config = require('../../../config/config'),
 	User = mongoose.model('User');
 
 /**
  * Signup
  */
-exports.signup = function(req, res) {
+exports.signup = function(req, res, next) {
+	//send verification mail to user
+	async.waterfall([
+		function(done) {
+			res.render('templates/signup-verification-email', {
+				appName: config.app.title,
+				url: 'http://' + req.headers.host + '/'
+			}, function(err, emailHTML) {
+				done(err, emailHTML);
+			});
+		},
+
+		function(emailHTML, done) {
+			var smtpTransport = nodemailer.createTransport(config.mailer.options);
+			var mailOptions = {
+				to: req.body.email,
+				from: config.mailer.from,
+				subject: 'Signup verification',
+				html: emailHTML
+			};
+			smtpTransport.sendMail(mailOptions, function(err) {
+				if (!err) {
+					// res.send({
+					// 	message: 'An email has been sent to you with further instructions.'
+					// });
+					console.log('An email has been sent to you with further instructions.');
+				}
+
+				done(err);
+			});
+		}
+	], function(err) {
+		if (err) 
+			{
+				console.log('error sending mail', err);
+			}
+	});
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
 
@@ -27,6 +66,7 @@ exports.signup = function(req, res) {
 	// Then save the user 
 	user.save(function(err) {
 		if (err) {
+			console.log('error saving user', err);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});

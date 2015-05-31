@@ -41,6 +41,10 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true
 	},
+	verification: {
+		type: String,
+		default: 'pending'
+	},
 	email: {
 		type: String,
 		trim: true,

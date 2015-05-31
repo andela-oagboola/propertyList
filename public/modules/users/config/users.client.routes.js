@@ -40,6 +40,10 @@ angular.module('users').config(['$stateProvider',
 		state('reset', {
 			url: '/password/reset/:token',
 			templateUrl: 'modules/users/views/password/reset-password.client.view.html'
+		})
+		.state('unverified-user', {
+			url: '/unverified-user',
+			templateUrl: 'modules/users/views/authentication/unverified-user.client.view.html'
 		});
 	}
 ]);

@@ -4,16 +4,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 	function($scope, $http, $location, Authentication) {
 		$scope.authentication = Authentication;
 
-		// If user is signed in then redirect back home
-		if ($scope.authentication.user) $location.path('/');
-
 		$scope.signup = function() {
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 
-				// And redirect to the index page
-				$location.path('/');
+				// And redirect to the unverified user page
+				$location.path('/unverified-user');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
@@ -23,9 +20,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
-
-				// And redirect to the index page
-				$location.path('/');
+				if ($scope.authentication.user.verification === 'pending') {
+					return $location.path('/unverified-user');
+				}
+				// And redirect to the all properties page
+				$location.path('/properties');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});

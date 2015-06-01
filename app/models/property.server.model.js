@@ -3,37 +3,21 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var  PropertySchema = new Schema({
 
-  title: {
-    type: String,
-  },
+  title:  String,
 
-  description: {
-    type: String
-  },
+  description: String,
 
-  price: {
-    type: Number
-  },
+  price: Number,
 
-  street: {
-    type: String
-  },
+  street: String,
 
-  city: {
-    type: String
-  },
+  city: String,
 
-  State: {
-    type: String
-  },
+  state: String,
 
-  Country: {
-    type: String
-  },
+  country: String,
 
-  posted_by: {
-    type: Schema.ObjectId
-  },
+  posted_by: Schema.ObjectId,
 
   posted_at: {
     type: Date,

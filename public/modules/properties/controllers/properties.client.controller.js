@@ -1,4 +1,3 @@
 'use strict';
-angular.module('properties').controller('allpropertiesCtrl', ['', function(){
-  console.log('abracadabra');
+angular.module('properties').controller('PropertiesCtrl', ['', function(){
 }]);

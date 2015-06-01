@@ -1,3 +1,7 @@
 'use strict';
-angular.module('properties').controller('PropertiesCtrl', ['', function(){
+
+angular.module('properties').controller('PropertiesCtrl', ['$scope', 'backendService', function ($scope, backendService){
+  backendService.getProperties.success(function(properties) {
+    $scope.properties = properties;
+  });
 }]);

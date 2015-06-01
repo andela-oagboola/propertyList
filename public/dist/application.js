@@ -71,10 +71,19 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 ]);
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus',
-	function($scope, Authentication, Menus) {
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$location',
+	function($scope, Authentication, Menus, $location) {
     // angular.element('.button-collapse').sideNav();
 		$scope.authentication = Authentication;
+
+		if ($scope.authentication.user.verification === 'pending') {
+			return $location.path('/unverified-user');
+		}
+
+		if($scope.authentication.user) {
+			return $location.path('/properties');
+		}
+
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
 
@@ -90,12 +99,11 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 ]);
 'use strict';
 
-
-angular.module('core').controller('HomeController', ['$scope', 'Authentication',
-	function($scope, Authentication) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$location',
+	function($scope, Authentication, $location) {
 		// This provides Authentication context.
-		$scope.authentication = Authentication;
-	}
+    $scope.authentication = Authentication;
+  }
 ]);
 'use strict';
 
@@ -264,16 +272,26 @@ angular.module('core').service('Menus', [
 	}
 ]);
 'use strict';
-angular.module('properties').config(['$stateProvider',function($stateProvider) {
+angular.module('properties').config(['$stateProvider', function($stateProvider) {
   $stateProvider.state('allproperties', {
     url: '/properties',
     templateUrl: 'modules/properties/views/allproperties.client.view.html',
-    controller: 'allpropertiesCtrl'
+    controller: 'PropertiesCtrl'
   });
 }]);
 'use strict';
-angular.module('properties').controller('allpropertiesCtrl', ['', function(){
-  console.log('abracadabra');
+
+angular.module('properties').controller('PropertiesCtrl', ['$scope', 'backendService', function ($scope, backendService){
+  backendService.getProperties().success(function(properties) {
+    console.log('proeprties', proeprties);
+  });
+}]);
+'use strict';
+
+angular.module('properties').factory('backendService', ['$http', function ($http) {
+  return {
+    getProperties: $http.get('/properties')
+  };
 }]);
 'use strict';
 
@@ -347,6 +365,10 @@ angular.module('users').config(['$stateProvider',
 		state('reset', {
 			url: '/password/reset/:token',
 			templateUrl: 'modules/users/views/password/reset-password.client.view.html'
+		})
+		.state('unverified-user', {
+			url: '/unverified-user',
+			templateUrl: 'modules/users/views/authentication/unverified-user.client.view.html'
 		});
 	}
 ]);
@@ -355,23 +377,23 @@ angular.module('users').config(['$stateProvider',
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
 	function($scope, $http, $location, Authentication) {
 		$scope.authentication = Authentication;
-		$scope.credentials = {};
-		$scope.credentials.firstName = 'olaide';
-		$scope.credentials.lastName = 'agboola';
-		$scope.credentials.email = 'lydexmail@yahoo.com';
-		$scope.credentials.username = 'lydex';
-		$scope.credentials.password = 'olaide.agboola';
-		$scope.credentials.phone_number = '0988765432';
-		// If user is signed in then redirect back home
-		if ($scope.authentication.user) $location.path('/');
 
+		//adding default user info for app testing
+		$scope.credentials = {
+			firstName: 'olaide',
+			lastName: 'agboola',
+			email: 'lydexmail@yahoo.com',
+			username: 'lydex',
+			password: 'olaide.agboola',
+			phone_number: '123456766'
+		};
 		$scope.signup = function() {
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 
-				// And redirect to the index page
-				$location.path('/');
+				// And redirect to the unverified user page
+				$location.path('/unverified-user');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
@@ -381,17 +403,17 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
-
+				if ($scope.authentication.user.verification === 'pending') {
+					return $location.path('/unverified-user');
+				}
 				// And redirect to the all properties page
-				$location.path('/#!/properties');
+				$location.path('/properties');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
 		};
 	}
 ]);
-
-
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication',

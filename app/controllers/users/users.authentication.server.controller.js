@@ -71,8 +71,8 @@ exports.signup = function(req, res, next) {
           var smtpTransport = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-              user: 'lydexmail@gmail.com',
-              pass: 'halleluyah'
+              user: config.mailer.options.auth.user,
+              pass: config.mailer.options.auth.pass
             }
           });
           var mailOptions = {

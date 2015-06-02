@@ -10,7 +10,7 @@ angular.module('properties').config(['$stateProvider', function ($stateProvider)
   .state('addProperties', {
     url: '/properties/add',
     templateUrl: 'modules/properties/views/addProperties.client.view.html',
-    // controller: 'addPropertiesCtrl'
+    controller: 'addPropertiesCtrl'
   });
 
 }]);

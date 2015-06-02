@@ -1,1 +1,43 @@
-<p>Welcome ma nigga</p>
+<div class="col s12">
+
+  <div class="row">
+
+    <div class="col s12 right-align">
+      <div class="row"><a class="waves-effect waves-light btn" href='/#!/properties/add'>Add property</a></div>
+    </div>
+
+    <div class="col s6">
+      <div class="row">ALL properties</div>
+    </div>
+
+    <div class="col s6 right-align">
+      <div class="row">
+        <i class='mdi-action-search'></i>Search
+      </div> 
+    </div>
+
+  </div>
+
+  <div class="row" ng-repeat="property in properties">
+
+    <div class="col s4">
+      <div class="row card-panel teal">
+        <img src="modules/properties/img/beautifulproperty.jpg" class="propertyImage">
+      </div>
+    </div>
+
+    <div class="col s8">
+
+      <div class="row">
+        <p>Title: {{property.title}}</p>
+        <p>Description: {{property.description}}</p>
+        <p>Price: {{property.price}}</p>
+      </div>
+
+      <div class="row right-align"><a class="waves-effect waves-light btn">View Property</a></div>
+      
+    </div>
+
+  </div>
+
+</div>

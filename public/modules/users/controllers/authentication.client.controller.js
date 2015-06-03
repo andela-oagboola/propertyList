@@ -4,6 +4,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 	function($scope, $http, $location, Authentication) {
 		$scope.authentication = Authentication;
 
+		if($scope.authentication.user) {
+			return $location.path('/properties');
+		}
+		
 		//adding default user info for app testing
 		$scope.credentials = {
 			firstName: 'olaide',

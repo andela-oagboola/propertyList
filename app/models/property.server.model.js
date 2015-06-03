@@ -23,6 +23,8 @@ var  PropertySchema = new Schema({
 
   email: String,
 
+  image: String,
+
   posted_at: {
     type: Date,
     default: Date.now

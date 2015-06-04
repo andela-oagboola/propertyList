@@ -11,6 +11,11 @@ angular.module('properties').config(['$stateProvider', function ($stateProvider)
     url: '/properties/add',
     templateUrl: 'modules/properties/views/addProperties.client.view.html',
     controller: 'addPropertiesCtrl'
-  });
+  })
+  .state('viewProperties', {
+     url: '/properties/:propertyId',
+     templateUrl: 'modules/properties/views/viewProperty.client.view.html',
+     controller: 'ViewPropertyCtrl',
+   });
 
 }]);

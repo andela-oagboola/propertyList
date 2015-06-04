@@ -7,3 +7,9 @@
   width: 350px;
   height: 350px;
 }
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-left: 47px;
+}

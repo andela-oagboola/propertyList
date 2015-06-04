@@ -1,16 +1,27 @@
 'use strict';
 var Property = require('./../models/property.server.model');
+var multer  = require('multer');
+var cloudinary = require('cloudinary');
+
+cloudinary.config({ 
+  cloud_name: 'drl4zlijn', 
+  api_key: '128592429854141', 
+  api_secret: 'k3K866jrhFt6D0ZzLHlIJOWhRu8' 
+});
 
 module.exports = {
 
   //create a new property
   create: function (req, res) {
-    Property.create(req.body, function(err, property) {
+    var property = JSON.parse(req.body.data);
+    property.image = req.img;
+    property.posted_by = req.user._id;
+    Property.create(property, function(err, new_property) {
       if (err) {
         res.status(400).send(err);
       }
       else {
-        res.json(property);
+        res.json(new_property);
       }
     });
   },
@@ -68,6 +79,14 @@ module.exports = {
       else {
         res.json(property);
       }
+    });
+  },
+
+  uploadImage: function (req, res, next) {
+    var path = req.files.file.path;
+    cloudinary.uploader.upload(path, function (response) {
+      req.img = response.url;
+      next();
     });
   }
 };

@@ -19,6 +19,12 @@ var  PropertySchema = new Schema({
 
   posted_by: Schema.ObjectId,
 
+  phone_number: Number,
+
+  email: String,
+
+  image: String,
+
   posted_at: {
     type: Date,
     default: Date.now

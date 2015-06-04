@@ -3,6 +3,6 @@ angular.module('properties').controller('ViewPropertyCtrl', ['$scope', '$locatio
   console.log($stateParams);
   backendService.getSingleProperty($stateParams.propertyId).success(function (property) {
     console.log(property);
-    $scope.property = property;
+    $scope.property = property[0];
   });
 }]);

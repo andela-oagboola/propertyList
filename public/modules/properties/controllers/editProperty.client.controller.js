@@ -31,7 +31,7 @@ angular.module('properties').controller('EditPropertyCtrl', ['$scope', 'backendS
   };
 
   $scope.updateProperty = function () { 
-    console.log($scope.properties);
+    console.log('$scope.properties');
     // backendService.editProperty($stateParams.propertyId).success(function (response) {
     //   console.log('res', response);
     // }).error(function (err) {

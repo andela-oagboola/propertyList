@@ -12,6 +12,10 @@ angular.module('properties').factory('backendService', ['$http', function ($http
 
     getSingleProperty: function (propertyId) {
       return $http.get('/properties/' + propertyId);
+    },
+
+    deleteProperty: function (propertyId) {
+      return $http.delete('/properties/' + propertyId);
     }
   };
 }]);

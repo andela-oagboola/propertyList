@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col s12">a</div>
+</div>
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="col s6"><img ng-src="{{property.image}}" class="property"></div>
+      <div class="col s6">
+        <p>{{property.title}}</p>
+        <p>{{property.price}}</p>
+        <p>{{property.posted_at | date}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <p>{{property.description}}</p>
+        <p>{{property.street}},{{propert.city}}, {{property.state}}</p>
+        <p>{{property.posted_by.displayName}}</p>
+      </div>
+    </div>
+  </div>
+</div>

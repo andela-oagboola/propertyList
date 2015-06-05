@@ -15,7 +15,7 @@ module.exports = {
   create: function (req, res) {
     var property = JSON.parse(req.body.data);
     property.image = req.img;
-    property.posted_by = req.user._id;
+    property.posted_by = req.user;
     Property.create(property, function(err, new_property) {
       if (err) {
         res.status(400).send(err);

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload', 'backendService', function($scope, $upload, backendService) {
+angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload', 'backendService', '$location', function($scope, $upload, backendService, $location) {
 
   $scope.onFileSelect = function($files) {
     if ($files && $files.length > 0) {
@@ -16,7 +16,12 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload
       file: $scope.file
     }).progress(function (evt) {
       $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
-    }).success(function (data, status, headers, config) {});
+    }).success(function (data, status, headers, config) {
+      $scope.property = data;
+      var propertyId = data._id;
+      alert('Property has been created');
+      return $location.path('/properties/' + propertyId);
+    });
   };
 
 }]);

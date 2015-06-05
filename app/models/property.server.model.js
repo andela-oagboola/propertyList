@@ -17,7 +17,7 @@ var  PropertySchema = new Schema({
 
   country: String,
 
-  posted_by: Schema.ObjectId,
+  posted_by: {},
 
   phone_number: Number,
 

@@ -2,3 +2,31 @@
   width: 230px;
   height: 200px;
 }
+
+.property {
+  width: 350px;
+  height: 350px;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-left: 47px;
+}
+
+.searchBar {
+  border: 1px solid grey;
+}
+
+.searchField {
+  margin: 0px;
+}
+
+.searchBar {
+  margin-bottom: 0px;
+  width: 20px;
+}
+
+.headWrapper {
+  background-color: red;
+}

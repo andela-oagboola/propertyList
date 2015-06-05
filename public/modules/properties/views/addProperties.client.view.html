@@ -1,60 +1,71 @@
 <div class="row">
-  <div class="input-field row">
-    <i class="mdi-action-home prefix"></i>
-    <input id="title" type="text" class="validate" ng-model="properties.title">
-    <label for="title">Title</label>
-  </div>
-  <div class="input-field row">
-    <i class="mdi-editor-attach-money prefix"></i>
-    <input id="cost" type="text" class="validate" ng-model="properties.price">
-    <label for="cost">Cost</label>
-  </div>
-  <div class="input-field row">
-    <i class="mdi-maps-place prefix"></i>
-    <input id="street" type="text" class="validate" ng-model="properties.street">
-    <label for="street">Street</label>
-  </div>
-  <div class="input-field row">
-    <i class="mdi-maps-place prefix"></i>
-    <input id="city" type="text" class="validate" ng-model="properties.city">
-    <label for="city">City</label>
-  </div>
-  <div class="input-field row">
-    <i class="mdi-maps-place prefix"></i>
-    <input id="state" type="text" class="validate" ng-model="properties.state">
-    <label for="state">State</label>
-  </div>
-  <div class="input-field row">
-    <i class="mdi-maps-place prefix"></i>
-    <input id="country" type="text" class="validate" ng-model="properties.country">
-    <label for="country">Country</label>
-  </div>
-  <div class="input-field row">
-    <i class="mdi-communication-phone prefix"></i>
-    <input id="phoneNum" type="text" class="validate" ng-model="properties.phone_number">
-    <label for="phoneNum">Contact Phone number</label>
-  </div>
-  <div class="input-field row">
-    <i class="mdi-communication-email prefix"></i>
-    <input id="email" type="text" class="validate" ng-model="properties.email">
-    <label for="email">Contact E-mail</label>
-  </div>
-  <div class="input-field row">
-    <i class="mdi-notification-event-note prefix"></i>
-    <textarea id="description" class="materialize-textarea" ng-model="properties.description"></textarea>
-    <label for="description">Description</label>
-  </div>
-  <div class="file-field input-field">
-    <input class="file-path validate" type="text" ng-model="files[0].name" disabled />
-      <div class="btn">
-        <span>Image</span>
-        <input type="file" data-ng-file-select="onFileSelect($files)" />
-      </div>
-  </div>
-  <!-- <div>
-    <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/*" />
-  </div> -->
-  <div class="input-field row right-align">
-    <a class="waves-effect waves-light btn" ng-click="addProperty()">Add Property</a>
-  </div>
+  <form name="addProperty" novalidate>
+    <div class="input-field row">
+      <i class="mdi-action-home prefix"></i>
+      <input id="title" type="text" class="validate" name="title" ng-model="properties.title" required>
+      <label for="title">Title</label>
+      <span class="errorMessage" ng-show="addProperty.title.$error.required &amp;&amp; addProperty.title.$dirty">Title cannot be empty</span>
+    </div>
+    <div class="input-field row">
+      <i class="mdi-editor-attach-money prefix"></i>
+      <input id="cost" type="number" name="cost" class="validate" ng-model="properties.price" min="0" required>
+      <label for="cost">Cost</label>
+      <span class="errorMessage" ng-show="addProperty.cost.$error.required &amp;&amp; addProperty.cost.$dirty">Fill in the property cost</span>
+      <span class="errorMessage" ng-show="addProperty.cost.$error.number">Enter valid price</span>
+      <span class="errorMessage" ng-show="addProperty.cost.$error.min">Amount cannot be negative</span>
+    </div>
+    <div class="input-field row">
+      <i class="mdi-maps-place prefix"></i>
+      <input id="street" name="street" type="text" class="validate" ng-model="properties.street" required>
+      <label for="street">Street</label>
+      <span class="errorMessage" ng-show="addProperty.street.$error.required &amp;&amp; addProperty.street.$dirty">Street cannot be empty</span>
+    </div>
+    <div class="input-field row">
+      <i class="mdi-maps-place prefix"></i>
+      <input id="city" name="city" type="text" class="validate" ng-model="properties.city" required>
+      <label for="city">City</label>
+      <span class="errorMessage" ng-show="addProperty.city.$error.required &amp;&amp; addProperty.city.$dirty">City cannot be empty</span>
+    </div>
+    <div class="input-field row">
+      <i class="mdi-maps-place prefix"></i>
+      <input id="state" name="state" type="text" class="validate" ng-model="properties.state" required>
+      <label for="state">State</label>
+      <span class="errorMessage" ng-show="addProperty.state.$error.required &amp;&amp; addProperty.state.$dirty">State cannot be empty</span>
+    </div>
+    <div class="input-field row">
+      <i class="mdi-maps-place prefix"></i>
+      <input id="country" name="country" type="text" class="validate" ng-model="properties.country" required>
+      <label for="country">Country</label>
+      <span class="errorMessage" ng-show="addProperty.country.$error.required &amp;&amp; addProperty.country.$dirty">Country cannot be empty</span>
+    </div>
+    <div class="input-field row">
+      <i class="mdi-communication-phone prefix"></i>
+      <input id="phoneNum" name="phonenum" type="text" class="validate" ng-model="properties.phone_number" required>
+      <label for="phoneNum">Contact Phone number</label>
+      <span class="errorMessage" ng-show="addProperty.phonenum.$error.required &amp;&amp; addProperty.phonenum.$dirty">Phone number cannot be empty</span>
+    </div>
+    <div class="input-field row">
+      <i class="mdi-communication-email prefix"></i>
+      <input id="email" name="email" type="email" class="validate" ng-model="properties.email" required>
+      <label for="email">Contact E-mail</label>
+      <span class="errorMessage" ng-show="addProperty.email.$error.required &amp;&amp; addProperty.email.$dirty">Email cannot be empty</span>
+      <span class="errorMessage" ng-show="addProperty.email.$error.email &amp;&amp; addProperty.email.$dirty">Email not valid</span>
+    </div>
+    <div class="input-field row">
+      <i class="mdi-notification-event-note prefix"></i>
+      <textarea id="description" name="description" class="materialize-textarea" ng-model="properties.description" required></textarea>
+      <label for="description">Description</label>
+      <span class="errorMessage" ng-show="addProperty.description.$error.required &amp;&amp; addProperty.description.$dirty">Description cannot be empty</span>
+    </div>
+    <div class="file-field input-field">
+      <input class="file-path validate" type="text" ng-model="files[0].name" disabled />
+        <div class="btn">
+          <span>Image</span>
+          <input type="file" name="pic" data-ng-file-select="onFileSelect($files)" accept="image/*"/>
+        </div>
+    </div>
+    <div class="input-field row right-align">
+      <input type="button" class="waves-effect waves-light btn" ng-disabled="addProperty.$invalid" ng-click="addProperty()" value="Add Property"/>
+    </div>
+  </form>
 </div>

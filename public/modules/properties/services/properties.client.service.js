@@ -16,6 +16,10 @@ angular.module('properties').factory('backendService', ['$http', function ($http
 
     deleteProperty: function (propertyId) {
       return $http.delete('/properties/' + propertyId);
+    },
+
+    editProperty: function (propertyId) {
+      return $http.put('/properties/' + propertyId);
     }
   };
 }]);

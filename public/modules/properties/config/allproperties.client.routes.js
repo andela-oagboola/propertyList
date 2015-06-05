@@ -16,6 +16,11 @@ angular.module('properties').config(['$stateProvider', function ($stateProvider)
      url: '/properties/:propertyId',
      templateUrl: 'modules/properties/views/viewProperty.client.view.html',
      controller: 'ViewPropertyCtrl',
-   });
+   })
+  .state('editProperties', {
+    url: '/properties/:propertyId/edit',
+    templateUrl: 'modules/properties/views/editProperty.client.view.html',
+    controller: 'EditPropertyCtrl'
+  });
 
 }]);

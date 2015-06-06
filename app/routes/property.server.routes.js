@@ -23,7 +23,7 @@ module.exports = function(app) {
 
   app.route('/properties/:propertyId')
     .get(property.read)
-    .put(property.update)
+    .put(property.uploadImage, property.update)
     .delete(property.delete);
 
   app.route('/properties/user/:userId').get(property.getUserProperty);

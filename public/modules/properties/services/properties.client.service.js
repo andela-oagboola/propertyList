@@ -18,14 +18,14 @@ angular.module('properties').factory('backendService', ['$http', '$upload', func
       return $http.delete('/properties/' + propertyId);
     },
 
-    editProperty: function (propertyId) {
-      return $http.put('/properties/' + propertyId);
+    editProperty: function (propertyId, properties) {
+      return $http.put('/properties/' + propertyId, properties);
     },
 
-    uploadImage: function (image, properties) {
+    uploadImage: function (image, method, url, properties) {
       return $upload.upload({
-        url: '/properties',
-        method: 'POST',
+        url: url,
+        method: method,
         data: properties,
         file: image
       });

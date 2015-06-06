@@ -61,6 +61,9 @@ module.exports = {
   },
 
   update: function (req, res) {
+    if(req.img) {
+      req.body.image = req.img;
+    }
     Property.findByIdAndUpdate(req.params.propertyId, req.body, function(err, property) {
       if (err) {
         res.status(400).send(err);
@@ -83,10 +86,15 @@ module.exports = {
   },
 
   uploadImage: function (req, res, next) {
-    var path = req.files.file.path;
-    cloudinary.uploader.upload(path, function (response) {
-      req.img = response.url;
+    if (req.files.file) {
+      var path = req.files.file.path;
+      cloudinary.uploader.upload(path, function (response) {
+        req.img = response.url;
+        next();
+      });
+    }
+    else {
       next();
-    });
+    }
   }
 };

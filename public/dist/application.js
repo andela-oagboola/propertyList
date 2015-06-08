@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'propertylist';
-	var applicationModuleVendorDependencies = ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.utils'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngFileUpload'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
@@ -78,10 +78,6 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 
 		if ($scope.authentication.user.verification === 'pending') {
 			return $location.path('/unverified-user');
-		}
-
-		if($scope.authentication.user) {
-			return $location.path('/properties');
 		}
 
 		$scope.isCollapsed = false;
@@ -272,27 +268,111 @@ angular.module('core').service('Menus', [
 	}
 ]);
 'use strict';
-angular.module('properties').config(['$stateProvider', function($stateProvider) {
-  $stateProvider.state('allproperties', {
+angular.module('properties').config(['$stateProvider', function ($stateProvider) {
+
+  $stateProvider
+  .state('allProperties', {
     url: '/properties',
     templateUrl: 'modules/properties/views/allproperties.client.view.html',
     controller: 'PropertiesCtrl'
+  })
+  .state('addProperties', {
+    url: '/properties/add',
+    templateUrl: 'modules/properties/views/addProperties.client.view.html',
+    controller: 'addPropertiesCtrl'
+  })
+  .state('viewProperties', {
+     url: '/properties/:propertyId',
+     templateUrl: 'modules/properties/views/viewProperty.client.view.html',
+     controller: 'ViewPropertyCtrl',
+   })
+  .state('editProperties', {
+    url: '/properties/:propertyId/edit',
+    templateUrl: 'modules/properties/views/editProperty.client.view.html',
+    controller: 'EditPropertyCtrl'
   });
+
+}]);
+'use strict';
+angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload', 'backendService', '$location', function($scope, $upload, backendService, $location) {
+
+  $scope.onFileSelect = function($files) {
+    if ($files && $files.length > 0) {
+      $scope.files = $files;
+    }
+  };
+
+  $scope.addProperty = function() {
+    $scope.file = $scope.files[0];
+    $scope.upload = $upload.upload({
+      url: '/properties',
+      method: 'POST',
+      data: $scope.properties,
+      file: $scope.file
+    }).progress(function (evt) {
+      $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
+    }).success(function (data, status, headers, config) {
+      $scope.property = data;
+      var propertyId = data._id;
+      alert('Property has been created');
+      return $location.path('/properties/' + propertyId);
+    });
+  };
+
+}]);
+
+'use strict';
+angular.module('properties').controller('EditPropertyCtrl', ['$scope', function($scope){
+  console.log('obiiiiiiieeeeeeyyyyyyy');
 }]);
 'use strict';
 
 angular.module('properties').controller('PropertiesCtrl', ['$scope', 'backendService', function ($scope, backendService){
   backendService.getProperties().success(function(properties) {
-    console.log('proeprties', proeprties);
+    $scope.properties = properties;
   });
 }]);
+'use strict';
+angular.module('properties').controller('ViewPropertyCtrl', ['$scope', '$location', '$stateParams', 'backendService', function($scope, $location, $stateParams, backendService) {
+  backendService.getSingleProperty($stateParams.propertyId).success(function (property) {
+    $scope.property = property[0];
+  });
+
+  $scope.deleteProperty = function () {
+    var response = confirm('are you sure you want to delete this property?');
+    if (response === true) {
+      backendService.deleteProperty($stateParams.propertyId).success(function (result) {
+        alert('property has been deleted');
+        $location.path('/properties');
+      }).error(function (err) {
+        alert('err');
+      });
+    }
+  };
+}]);
+
 'use strict';
 
 angular.module('properties').factory('backendService', ['$http', function ($http) {
   return {
-    getProperties: $http.get('/properties')
+    getProperties: function () {
+      return $http.get('/properties');
+    },
+
+    addProperty: function (property) {
+      return $http.post('/properties', property);
+    },
+
+    getSingleProperty: function (propertyId) {
+      return $http.get('/properties/' + propertyId);
+    },
+
+    deleteProperty: function (propertyId) {
+      return $http.delete('/properties/' + propertyId);
+    }
   };
 }]);
+
 'use strict';
 
 // Config HTTP Error Handling
@@ -378,6 +458,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 	function($scope, $http, $location, Authentication) {
 		$scope.authentication = Authentication;
 
+		if($scope.authentication.user) {
+			return $location.path('/properties');
+		}
+		
 		//adding default user info for app testing
 		$scope.credentials = {
 			firstName: 'olaide',

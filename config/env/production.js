@@ -5,15 +5,18 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-				'public/lib/bootstrap/dist/css/bootstrap.min.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+		// 		'public/lib/bootstrap/dist/css/bootstrap.min.css',
+		// 		'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+		'public/lib/materialize/dist/css/materialize.css'
 			],
 			js: [
 				'public/lib/angular/angular.min.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
+				'public/lib/angular-route/angular-route.min.js',
 				'public/lib/angular-ui-utils/ui-utils.min.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+				'public/lib/ng-file-upload/angular-file-upload.min.js'
 			]
 		},
 		css: 'public/dist/application.min.css',

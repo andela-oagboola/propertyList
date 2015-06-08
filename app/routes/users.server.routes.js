@@ -9,6 +9,9 @@ module.exports = function(app) {
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');
 
+	//verfiy user email
+	app.route('/activate/:userId').get(users.activate);
+
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);
 	app.route('/users').put(users.update);

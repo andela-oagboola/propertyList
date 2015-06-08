@@ -41,6 +41,10 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true
 	},
+	verification: {
+		type: String,
+		default: 'pending'
+	},
 	email: {
 		type: String,
 		trim: true,
@@ -58,6 +62,9 @@ var UserSchema = new Schema({
 		type: String,
 		default: '',
 		validate: [validateLocalStrategyPassword, 'Password should be longer']
+	},
+	phone_number: {
+		type: String
 	},
 	salt: {
 		type: String

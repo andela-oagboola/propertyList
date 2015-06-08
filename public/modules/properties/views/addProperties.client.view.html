@@ -58,14 +58,14 @@
       <span class="errorMessage" ng-show="addProperty.description.$error.required &amp;&amp; addProperty.description.$dirty">Description cannot be empty</span>
     </div>
     <div class="file-field input-field">
-      <input class="file-path validate" type="text" ng-model="files[0].name" disabled />
+      <input class="file-path validate" type="text" ng-model="files[0].name" disabled required/>
         <div class="btn">
           <span>Image</span>
           <input type="file" name="pic" data-ng-file-select="onFileSelect($files)" accept="image/*"/>
         </div>
     </div>
     <div class="input-field row right-align">
-      <input type="button" class="waves-effect waves-light btn" ng-click="createProperty()" value="Add Property"/>
+      <input type="button" class="waves-effect waves-light btn" ng-click="createProperty()" ng-disabled="addProperty.$invalid" value="Add Property"/>
     </div>
   </form>
 </div>

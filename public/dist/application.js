@@ -302,14 +302,9 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload
     }
   };
 
-  $scope.addProperty = function() {
+  $scope.createProperty = function () {
     $scope.file = $scope.files[0];
-    $scope.upload = $upload.upload({
-      url: '/properties',
-      method: 'POST',
-      data: $scope.properties,
-      file: $scope.file
-    }).progress(function (evt) {
+    backendService.uploadImage($scope.file, $scope.properties).progress(function (evt) {
       $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
     }).success(function (data, status, headers, config) {
       $scope.property = data;
@@ -322,8 +317,57 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload
 }]);
 
 'use strict';
-angular.module('properties').controller('EditPropertyCtrl', ['$scope', function($scope){
-  console.log('obiiiiiiieeeeeeyyyyyyy');
+angular.module('properties').controller('EditPropertyCtrl', ['$scope', 'backendService', '$stateParams', '$location', function($scope, backendService, $stateParams, $location){
+  $scope.editImage = true;
+
+  var getProperty = function () {
+    backendService.getSingleProperty($stateParams.propertyId).success(function (res) {
+      $scope.properties = res[0];
+    });
+  };
+  getProperty();
+
+  $scope.onFileSelect = function($files) {
+    if ($files && $files.length > 0) {
+      $scope.newFile = $files[0];
+      $scope.fileName = $scope.newFile.name;
+    }
+  };
+
+  $scope.edit_image = function () {
+    $scope.editImage = false;
+    $scope.allowEdit = true;
+    $scope.isDisabled = true;
+  };
+
+  $scope.cancelEdit = function () {
+    $scope.fileName = '';
+    $scope.editImage = true;
+    $scope.allowEdit = false;
+    $scope.isDisabled = false;
+  };
+
+  $scope.updateImage = function () {
+    var property = {image: $scope.fileName};
+    var url = '/properties/' + $stateParams.propertyId;
+    backendService.uploadImage($scope.newFile, 'PUT', url).progress(function (evt) {
+      $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
+    }).success(function (data, status, headers, config) {
+      $scope.fileName = '';
+      getProperty();
+      alert('image update successful');
+    });
+  };
+
+  $scope.updateProperty = function () {
+    var url = '/properties/' + $stateParams.propertyId;
+    backendService.editProperty($stateParams.propertyId, $scope.properties).success(function (response) {
+      alert('update successful');
+      $location.path('/properties/' + $stateParams.propertyId);
+    }).error(function (err) {
+      console.log('err', err);
+    });
+  };
 }]);
 'use strict';
 
@@ -353,7 +397,7 @@ angular.module('properties').controller('ViewPropertyCtrl', ['$scope', '$locatio
 
 'use strict';
 
-angular.module('properties').factory('backendService', ['$http', function ($http) {
+angular.module('properties').factory('backendService', ['$http', '$upload', function ($http, $upload) {
   return {
     getProperties: function () {
       return $http.get('/properties');
@@ -369,6 +413,19 @@ angular.module('properties').factory('backendService', ['$http', function ($http
 
     deleteProperty: function (propertyId) {
       return $http.delete('/properties/' + propertyId);
+    },
+
+    editProperty: function (propertyId, properties) {
+      return $http.put('/properties/' + propertyId, properties);
+    },
+
+    uploadImage: function (image, method, url, properties) {
+      return $upload.upload({
+        url: url,
+        method: method,
+        data: properties,
+        file: image
+      });
     }
   };
 }]);

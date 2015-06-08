@@ -2,6 +2,7 @@
 
 module.exports = {
 	db: 'mongodb://localhost/propertylist-dev',
+	// db: 'mongodb://laide:laide@ds045252.mongolab.com:45252/quicksale',
 	app: {
 		title: 'propertyList - Development Environment'
 	},

@@ -1,3 +1,7 @@
+body {
+  background: url('./../img/subtle_white_mini_waves.png') no-repeat center center fixed;
+  background-size: 100%
+}
 .content {
 	margin-top: 50px;
 }
@@ -13,6 +17,25 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
-i {
-  font-weight: normal;
+.frontpageImage {
+  background: url('./../img/banner_edit.png') no-repeat fixed;
+  background-size: 100%;
+  min-height: 400px;
+}
+.mainBody {
+  margin-top: 35px;
+}
+
+.loginBody {
+  margin-top: 45px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.propertiesCard {
+  margin-top: 0;
+}
+
+.pageHeader {
+  margin-bottom: 0;
 }

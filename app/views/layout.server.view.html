@@ -33,6 +33,7 @@
 
 	<!-- Fav Icon -->
 	<link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="./modules/core/css/core.css">
 
 	<!--Application CSS Files-->
 	{% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
@@ -45,11 +46,11 @@
 
 <body class="ng-cloak">
 	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-	<section class="content">
-		<section class="container-fluid">
+	<div>
+		<div class="container-fluid">
 			{% block content %}{% endblock %}
-		</section>
-	</section>
+		</div>
+	</div>
 
 	<!--Embedding The User Object-->
 	<script type="text/javascript">

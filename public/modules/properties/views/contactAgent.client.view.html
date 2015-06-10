@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col s6">
+    <div class="row">Conatct Agent</div>
+
+    <div class="row">
+      <form name="contactAgent" novalidate>
+        <div class="input-field row">
+          <i class="mdi-image-timer-auto prefix"></i>
+          <input id="name" type="text" class="validate" name="name" ng-model="user.displayName" disabled required placeholder="Name" style="color: black">
+          <span class="errorMessage" ng-show="conatctAgent.name.$error.required &amp;&amp; conatctAgent.name.$dirty">Title cannot be empty</span>
+        </div>
+        <div class="input-field row">
+          <i class="mdi-communication-email prefix"></i>
+          <input id="email" type="text" class="validate" name="email" ng-model="user.email" disabled required placeholer="Email" style="color: black">
+          <span class="errorMessage" ng-show="conatctAgent.email.$error.required &amp;&amp; conatctAgent.email.$dirty">Title cannot be empty</span>
+        </div>
+        <div class="input-field row">
+          <i class="mdi-editor-mode-edit prefix"></i>
+          <input id="subject" type="text" class="validate" name="subject" ng-model="mailContent.subject" required>
+          <label for="subject">Subject</label>
+          <span class="errorMessage" ng-show="conatctAgent.subject.$error.required &amp;&amp; conatctAgent.subject.$dirty">Title cannot be empty</span>
+        </div>
+        <div class="input-field row">
+          <i class="mdi-notification-event-note prefix"></i>
+          <textarea id="message" name="message" class="materialize-textarea" ng-model="mailContent.message" required></textarea>
+          <label for="message">Message</label>
+          <span class="errorMessage" ng-show="addProperty.message.$error.required &amp;&amp; addProperty.message.$dirty">Description cannot be empty</span>
+        </div>
+        <div class="input-field row right-align">
+          <input type="button" class="waves-effect waves-light btn" ng-click="sendMail()" ng-disabled="contactAgent.$invalid" value="Send Mail"/>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

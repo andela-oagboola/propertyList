@@ -27,5 +27,7 @@ module.exports = function(app) {
     .delete(property.delete);
 
   app.route('/properties/user/:userId').get(property.getUserProperty);
+
+  app.route('/properties/:propertyId/contactAgent').post(property.mailProperyOwner);
   
 };

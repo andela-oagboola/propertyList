@@ -2,6 +2,11 @@
 var Property = require('./../models/property.server.model');
 var multer  = require('multer');
 var cloudinary = require('cloudinary');
+var async = require('async');
+var nodemailer = require('nodemailer');
+var mandrill = require('mandrill-api/mandrill');
+var mandrill_client = new mandrill.Mandrill('yyImU4c6tAZasTqA57mvpw');
+var config = require('../../config/config');
 
 cloudinary.config({ 
   cloud_name: 'drl4zlijn', 
@@ -96,5 +101,60 @@ module.exports = {
     else {
       next();
     }
+  },
+
+  mailProperyOwner: function (req, res) {
+    async.waterfall([
+      function(done) { res.render('templates/contact-agent-email', {
+          appName: config.app.title,
+          messageBody: req.body.message
+        }, function(err, emailHTML) {
+          done(err, emailHTML);
+        });
+      },
+
+      function(emailHTML, done) {
+      console.log('subject', req.body.subject);
+      console.log('sender email', req.body.senderEmail);
+      console.log('sender name', req.body.senderName);
+      console.log('receiver mail', req.body.receiverEmail);
+        var message = {
+          'html': '<p>This house is pretty</p>',
+          'subject': req.body.subject,
+          'from_email': 'olaide.agboola@andela.co',
+          'from_name': req.body.senderName,
+          'to': [{
+                  'email': 'lydexmail@gmail.com'
+              }],
+          'headers': {
+              'Reply-To': req.body.senderEmail
+          },
+          'important': false
+        };
+        // var message = {
+        //   'html': '<p>Hello, I want to buy cake</p>',
+        //   'subject': 'I want to buy the house',
+        //   'from_email': 'olaide.agboola@andela.co',
+        //   'from_name': 'laide',
+        //   'to': [{
+        //     'email': 'lydexmail@yahoo.com',
+        //   }],
+        //   'headers': {
+        //     'Reply-To': 'olaide.agboola@andela.co'
+        //   },
+        //   'important': false
+        // };
+        mandrill_client.messages.send({'message':message}, function (result) {
+          console.log('result from mail bla', result);
+          res.send(result);
+        }, function(e) {
+          console.log('error from mail client', e.name, e.message);
+        });
+      }
+    ], function(err) {
+      if (err) {
+        console.log('error sending mail', err);
+      }
+    });
   }
 };

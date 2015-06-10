@@ -114,38 +114,20 @@ module.exports = {
       },
 
       function(emailHTML, done) {
-      console.log('subject', req.body.subject);
-      console.log('sender email', req.body.senderEmail);
-      console.log('sender name', req.body.senderName);
-      console.log('receiver mail', req.body.receiverEmail);
         var message = {
-          'html': '<p>This house is pretty</p>',
+          'html': req.body.message,
           'subject': req.body.subject,
-          'from_email': 'olaide.agboola@andela.co',
+          'from_email': req.body.senderEmail,
           'from_name': req.body.senderName,
           'to': [{
-                  'email': 'lydexmail@gmail.com'
+                  'email': req.body.receiverEmail
               }],
           'headers': {
               'Reply-To': req.body.senderEmail
           },
           'important': false
         };
-        // var message = {
-        //   'html': '<p>Hello, I want to buy cake</p>',
-        //   'subject': 'I want to buy the house',
-        //   'from_email': 'olaide.agboola@andela.co',
-        //   'from_name': 'laide',
-        //   'to': [{
-        //     'email': 'lydexmail@yahoo.com',
-        //   }],
-        //   'headers': {
-        //     'Reply-To': 'olaide.agboola@andela.co'
-        //   },
-        //   'important': false
-        // };
         mandrill_client.messages.send({'message':message}, function (result) {
-          console.log('result from mail bla', result);
           res.send(result);
         }, function(e) {
           console.log('error from mail client', e.name, e.message);

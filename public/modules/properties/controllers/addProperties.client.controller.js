@@ -9,7 +9,7 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload
 
   $scope.createProperty = function () {
     $scope.file = $scope.files[0];
-    backendService.uploadImage($scope.file, $scope.properties).progress(function (evt) {
+    backendService.uploadImage($scope.file, 'POST', '/properties', $scope.properties).progress(function (evt) {
       $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
     }).success(function (data, status, headers, config) {
       $scope.property = data;

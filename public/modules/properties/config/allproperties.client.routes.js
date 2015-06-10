@@ -21,6 +21,11 @@ angular.module('properties').config(['$stateProvider', function ($stateProvider)
     url: '/properties/:propertyId/edit',
     templateUrl: 'modules/properties/views/editProperty.client.view.html',
     controller: 'EditPropertyCtrl'
+  })
+  .state('contactAgent', {
+    url: '/properties/:propertyId/contact-agent',
+    templateUrl: 'modules/properties/views/contactAgent.client.view.html',
+    controller: 'ContactAgentCtrl'
   });
 
 }]);

@@ -1,5 +1,5 @@
 body {
-  background: url('./../img/subtle_white_mini_waves.png') no-repeat center center fixed;
+  background: url('http://res.cloudinary.com/drl4zlijn/image/upload/v1434056791/subtle_white_mini_waves_f5igs7.png') no-repeat center center fixed;
   background-size: 100%
 }
 .content {
@@ -18,7 +18,7 @@ body {
 	border-color: #78FA89;
 }
 .frontpageImage {
-  background: url('./../img/banner_edit.png') no-repeat fixed;
+  background: url('http://res.cloudinary.com/drl4zlijn/image/upload/v1434056810/banner_edit_w5wmzv.png') no-repeat fixed;
   background-size: 100%;
   min-height: 400px;
 }

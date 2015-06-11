@@ -1,5 +1,12 @@
 'use strict';
-angular.module('properties').controller('ContactAgentCtrl', ['$scope', 'Authentication', 'backendService', '$stateParams', function($scope, Authentication, backendService, $stateParams){
+angular.module('properties').controller('ContactAgentCtrl', ['$location', '$scope', 'Authentication', 'backendService', '$stateParams', function($location, $scope, Authentication, backendService, $stateParams){
+
+  $scope.authentication = Authentication;
+
+  if(!$scope.authentication.user) {
+    return $location.path('/');
+  }
+
   $scope.user = Authentication.user;
   $scope.mailContent = {};
 

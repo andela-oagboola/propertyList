@@ -1,5 +1,12 @@
 'use strict';
-angular.module('properties').controller('EditPropertyCtrl', ['$scope', 'backendService', '$stateParams', '$location', function($scope, backendService, $stateParams, $location){
+angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '$scope', 'backendService', '$stateParams', '$location', function(Authentication, $scope, backendService, $stateParams, $location){
+
+  $scope.authentication = Authentication;
+  
+  if(!$scope.authentication.user) {
+    return $location.path('/');
+  }
+
   $scope.editImage = true;
 
   var getProperty = function () {

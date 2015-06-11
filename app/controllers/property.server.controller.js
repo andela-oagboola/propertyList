@@ -9,9 +9,9 @@ var mandrill_client = new mandrill.Mandrill('yyImU4c6tAZasTqA57mvpw');
 var config = require('../../config/config');
 
 cloudinary.config({ 
-  cloud_name: 'drl4zlijn', 
-  api_key: '128592429854141', 
-  api_secret: 'k3K866jrhFt6D0ZzLHlIJOWhRu8' 
+  cloud_name: config.cloudinary.cloudName, 
+  api_key: config.cloudinary.apiKey, 
+  api_secret: config.cloudinary.apiSecret
 });
 
 module.exports = {

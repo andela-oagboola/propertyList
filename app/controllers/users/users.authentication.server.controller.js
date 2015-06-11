@@ -91,13 +91,8 @@ exports.signup = function(req, res, next) {
         if (err) {
           res.status(400).send(err);
         }
-      });
-
-      req.login(user, function(err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
+        else {
+          res.json('/');
         }
       });
     }

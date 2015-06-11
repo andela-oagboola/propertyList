@@ -14,15 +14,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			});
 		};
 		getProperties();
-		//adding default user info for app testing
-		$scope.credentials = {
-			firstName: 'olaide',
-			lastName: 'agboola',
-			email: 'lydexmail@yahoo.com',
-			username: 'lydex',
-			password: 'olaide.agboola',
-			phone_number: '123456766'
-		};
+		
 		$scope.signup = function() {
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model

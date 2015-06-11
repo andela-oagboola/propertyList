@@ -20,7 +20,7 @@ module.exports = {
   create: function (req, res) {
     var property = JSON.parse(req.body.data);
     property.image = req.img;
-    property.posted_by = req.user;
+    property.posted_by = req.user._id;
     Property.create(property, function(err, new_property) {
       if (err) {
         res.status(400).send(err);
@@ -32,7 +32,7 @@ module.exports = {
   },
 
   list: function(req, res) {
-    Property.find({}, function(err, properties) {
+    Property.find({}).populate('posted_by').exec(function (err, properties) {
       if(err) {
         res.status(400).send(err);
       }
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   read: function (req, res) {
-    Property.find({_id: req.params.propertyId}, function(err, property) {
+    Property.findById(req.params.propertyId).populate('posted_by').exec(function (err, property) {
       if(err) {
         res.status(400).send(err);
       }
@@ -55,7 +55,7 @@ module.exports = {
 
   //get property created by particular user
   getUserProperty: function (req, res) {
-    Property.find({posted_by: req.params.userId}, function(err, userProperties) {
+    Property.findById(req.params.userId).populate('posted_by').exec(function (err, userProperties) {
       if(err) {
         res.status(400).send(err);
       }

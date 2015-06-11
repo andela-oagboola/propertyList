@@ -1,7 +1,9 @@
 'use strict';
-angular.module('properties').controller('ViewPropertyCtrl', ['$scope', '$location', '$stateParams', 'backendService', function($scope, $location, $stateParams, backendService) {
+angular.module('properties').controller('ViewPropertyCtrl', ['Authentication', '$scope', '$location', '$stateParams', 'backendService', function(Authentication, $scope, $location, $stateParams, backendService) {
+  $scope.user = Authentication.user;
   backendService.getSingleProperty($stateParams.propertyId).success(function (property) {
-    $scope.property = property[0];
+    $scope.property = property;
+    $scope.owner = $scope.property.posted_by._id;
   });
 
   $scope.deleteProperty = function () {

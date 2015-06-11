@@ -1,6 +1,8 @@
 'use strict';
-angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload', 'backendService', '$location', function($scope, $upload, backendService, $location) {
-
+angular.module('properties').controller('addPropertiesCtrl', ['$scope', 'Authentication', '$upload', 'backendService', '$location', function($scope, Authentication, $upload, backendService, $location) {
+  $scope.user = Authentication.user;
+  $scope.properties = {};
+  $scope.properties.email = $scope.user.email;
   $scope.onFileSelect = function($files) {
     if ($files && $files.length > 0) {
       $scope.files = $files;

@@ -3,6 +3,10 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', 'Authent
   $scope.user = Authentication.user;
   $scope.properties = {};
   $scope.properties.email = $scope.user.email;
+
+  if (!$scope.user) {
+    return $location.path('/');
+  }
   $scope.onFileSelect = function($files) {
     if ($files && $files.length > 0) {
       $scope.files = $files;

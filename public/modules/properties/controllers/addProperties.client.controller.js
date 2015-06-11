@@ -1,6 +1,12 @@
 'use strict';
-angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload', 'backendService', '$location', function($scope, $upload, backendService, $location) {
+angular.module('properties').controller('addPropertiesCtrl', ['$scope', 'Authentication', '$upload', 'backendService', '$location', function($scope, Authentication, $upload, backendService, $location) {
+  $scope.user = Authentication.user;
+  $scope.properties = {};
+  $scope.properties.email = $scope.user.email;
 
+  if (!$scope.user) {
+    return $location.path('/');
+  }
   $scope.onFileSelect = function($files) {
     if ($files && $files.length > 0) {
       $scope.files = $files;
@@ -9,7 +15,7 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload
 
   $scope.createProperty = function () {
     $scope.file = $scope.files[0];
-    backendService.uploadImage($scope.file, $scope.properties).progress(function (evt) {
+    backendService.uploadImage($scope.file, 'POST', '/properties', $scope.properties).progress(function (evt) {
       $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
     }).success(function (data, status, headers, config) {
       $scope.property = data;

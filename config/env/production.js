@@ -47,6 +47,11 @@ module.exports = {
 		clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
 		callbackURL: '/auth/github/callback'
 	},
+	cloudinary: {
+		cloudName: process.env.CLOUD_NAME || 'CLOUD_NAME', 
+		apiKey: process.env.API_KEY || 'API_KEY', 
+		apiSecret: process.env.API_SECRET || 'API_SECRET'
+	},
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',
 		options: {

@@ -29,6 +29,10 @@ angular.module('properties').factory('backendService', ['$http', '$upload', func
         data: properties,
         file: image
       });
+    },
+
+    contactAgent: function (propertyId, property) {
+      return $http.post('/properties/' + propertyId + '/contactAgent', property);
     }
   };
 }]);

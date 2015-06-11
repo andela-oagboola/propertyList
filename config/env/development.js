@@ -2,7 +2,6 @@
 
 module.exports = {
 	db: 'mongodb://localhost/propertylist-dev',
-	// db: 'mongodb://laide:laide@ds045252.mongolab.com:45252/quicksale',
 	app: {
 		title: 'propertyList - Development Environment'
 	},
@@ -25,6 +24,11 @@ module.exports = {
 		clientID: process.env.LINKEDIN_ID || 'APP_ID',
 		clientSecret: process.env.LINKEDIN_SECRET || 'APP_SECRET',
 		callbackURL: '/auth/linkedin/callback'
+	},
+	cloudinary: {
+		cloudName: process.env.CLOUD_NAME || 'CLOUD_NAME', 
+		apiKey: process.env.API_KEY || 'API_KEY', 
+		apiSecret: process.env.API_SECRET || 'API_SECRET'
 	},
 	github: {
 		clientID: process.env.GITHUB_ID || 'APP_ID',

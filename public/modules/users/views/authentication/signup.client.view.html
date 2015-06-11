@@ -4,30 +4,34 @@
 			<fieldset>
 				<div class="input-field">
 					<label for="firstName">First name</label>
-					<input type="text" required id="firstName" name="firstName" data-ng-model="credentials.firstName">
+					<input type="text" required id="firstName" name="firstName" data-ng-model="credentials.firstName" required>
 				</div>
 				<div class="input-field">
 					<label for="lastName">Last Name</label>
-					<input type="text" id="lastName" name="lastName" data-ng-model="credentials.lastName">
+					<input type="text" id="lastName" name="lastName" data-ng-model="credentials.lastName" required>
 				</div>
 				<div class="input-field">
-					<input type="email" id="email" name="email" data-ng-model="credentials.email" placeholder="Email">
+					<label for="lastName">Email</label>
+					<input type="email" id="email" name="email" data-ng-model="credentials.email" placeholder="Email" required>
 				</div>
 				<div class="input-field">
-					<input type="text" id="username" name="username" data-ng-model="credentials.username" placeholder="Username">
+					<label for="lastName">Username</label>
+					<input type="text" id="username" name="username" data-ng-model="credentials.username" placeholder="Username" required>
 				</div>
 				<div class="input-field">
-					<input type="password" id="password" name="password" data-ng-model="credentials.password" placeholder="Password">
+					<label for="lastName">Password</label>
+					<input type="password" id="password" name="password" data-ng-model="credentials.password" placeholder="Password" required>
 				</div>
 				<div class="input-field">
-					<input type="text" id="phone" name="phone" data-ng-model="credentials.phone_number" placeholder="phone number">
+					<label for="lastName">Phone Number</label>
+					<input type="text" id="phone" name="phone" data-ng-model="credentials.phone_number" placeholder="phone number" required>
 				</div>
 				<div class="text-center form-group">
-					<button type="submit" class="btn btn-large btn-primary">Sign up</button>&nbsp; or&nbsp;
+					<input value="Sign Up" type="submit" class="btn btn-large btn-primary" ng-disabled="userForm.$invalid"/>&nbsp; or&nbsp;
 					<a href="/" class="show-signup">Sign in</a>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
-					<strong data-ng-bind="error"></strong>
+					<strong data-ng-bind="error" style="color:red"></strong>
 				</div>
 			</fieldset>
 		</form>

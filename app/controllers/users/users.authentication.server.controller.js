@@ -20,21 +20,19 @@ exports.activate = function(req, res, next) {
   var userId = req.params.userId;
   User.findByIdAndUpdate({ '_id': userId }, {'verification': 'verified'}, function(err, retrieved_user) {
     if (err) {
-      console.log('error retrieving user', err);
+      res.status(400).send(err);
     }
 
     req.login(retrieved_user, function(err, user) {
       if (err) {
-        console.log('error signing in user from mail', err);
+        res.status(400).send(err);
       }
-      console.log('signed in user from mail', user);
       res.redirect('/');
     });
   });
 };
 
 exports.signup = function(req, res, next) {
-  // console.log('user id', req.body);
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
@@ -91,15 +89,10 @@ exports.signup = function(req, res, next) {
         }
       ], function(err) {
         if (err) {
-          console.log('error sending mail', err);
-        }
-      });
-
-      req.login(user, function(err) {
-        if (err) {
           res.status(400).send(err);
-        } else {
-          res.json(user);
+        }
+        else {
+          res.json('/');
         }
       });
     }

@@ -46,8 +46,7 @@
     </div>
     <div class="input-field row">
       <i class="mdi-communication-email prefix"></i>
-      <input id="email" name="email" type="email" class="validate" ng-model="properties.email" required>
-      <label for="email">Contact E-mail</label>
+      <input id="email" name="email" type="email" class="validate" ng-model="properties.email" disabled required style="color:black" paceholder="Email">
       <span class="errorMessage" ng-show="addProperty.email.$error.required &amp;&amp; addProperty.email.$dirty">Email cannot be empty</span>
       <span class="errorMessage" ng-show="addProperty.email.$error.email &amp;&amp; addProperty.email.$dirty">Email not valid</span>
     </div>

@@ -1,7 +1,4 @@
 <div class="row">
-  <div class="col s12">a</div>
-</div>
-<div class="row">
   <div class="col s12">
     <div class="row">
       <div class="col s6"><img ng-src="{{property.image}}" class="property"></div>
@@ -12,9 +9,9 @@
           <p>{{property.posted_at | date}}</p>
         </div>
         <div class="row">
-          <a href="/#!/properties/{{property._id}}/edit" class="waves-effect waves-light btn">Edit</a>
-          <a class="waves-effect waves-light btn" ng-click="deleteProperty()">Delete</a>
-          <a class="waves-effect waves-light btn" href="/#!/properties/{{property._id}}/contact-agent">Contact agent</a>
+          <a href="/#!/properties/{{property._id}}/edit" class="waves-effect waves-light btn" ng-show="user._id===owner">Edit</a>
+          <a class="waves-effect waves-light btn" ng-click="deleteProperty()" ng-show="user._id===owner">Delete</a>
+          <a class="waves-effect waves-light btn" href="/#!/properties/{{property._id}}/contact-agent" ng-hide="user._id===owner">Contact agent</a>
         </div>
       </div>
     </div>

@@ -299,8 +299,14 @@ angular.module('properties').config(['$stateProvider', function ($stateProvider)
 
 }]);
 'use strict';
-angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload', 'backendService', '$location', function($scope, $upload, backendService, $location) {
+angular.module('properties').controller('addPropertiesCtrl', ['$scope', 'Authentication', '$upload', 'backendService', '$location', function($scope, Authentication, $upload, backendService, $location) {
+  $scope.user = Authentication.user;
+  $scope.properties = {};
+  $scope.properties.email = $scope.user.email;
 
+  if (!$scope.user) {
+    return $location.path('/');
+  }
   $scope.onFileSelect = function($files) {
     if ($files && $files.length > 0) {
       $scope.files = $files;
@@ -322,7 +328,14 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', '$upload
 }]);
 
 'use strict';
-angular.module('properties').controller('ContactAgentCtrl', ['$scope', 'Authentication', 'backendService', '$stateParams', function($scope, Authentication, backendService, $stateParams){
+angular.module('properties').controller('ContactAgentCtrl', ['$location', '$scope', 'Authentication', 'backendService', '$stateParams', function($location, $scope, Authentication, backendService, $stateParams){
+
+  $scope.authentication = Authentication;
+
+  if(!$scope.authentication.user) {
+    return $location.path('/');
+  }
+
   $scope.user = Authentication.user;
   $scope.mailContent = {};
 
@@ -344,7 +357,14 @@ angular.module('properties').controller('ContactAgentCtrl', ['$scope', 'Authenti
   };
 }]);
 'use strict';
-angular.module('properties').controller('EditPropertyCtrl', ['$scope', 'backendService', '$stateParams', '$location', function($scope, backendService, $stateParams, $location){
+angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '$scope', 'backendService', '$stateParams', '$location', function(Authentication, $scope, backendService, $stateParams, $location){
+
+  $scope.authentication = Authentication;
+  
+  if(!$scope.authentication.user) {
+    return $location.path('/');
+  }
+
   $scope.editImage = true;
 
   var getProperty = function () {
@@ -404,9 +424,11 @@ angular.module('properties').controller('PropertiesCtrl', ['$scope', 'backendSer
   });
 }]);
 'use strict';
-angular.module('properties').controller('ViewPropertyCtrl', ['$scope', '$location', '$stateParams', 'backendService', function($scope, $location, $stateParams, backendService) {
+angular.module('properties').controller('ViewPropertyCtrl', ['Authentication', '$scope', '$location', '$stateParams', 'backendService', function(Authentication, $scope, $location, $stateParams, backendService) {
+  $scope.user = Authentication.user;
   backendService.getSingleProperty($stateParams.propertyId).success(function (property) {
-    $scope.property = property[0];
+    $scope.property = property;
+    $scope.owner = $scope.property.posted_by._id;
   });
 
   $scope.deleteProperty = function () {
@@ -556,15 +578,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			});
 		};
 		getProperties();
-		//adding default user info for app testing
-		$scope.credentials = {
-			firstName: 'olaide',
-			lastName: 'agboola',
-			email: 'lydexmail@yahoo.com',
-			username: 'lydex',
-			password: 'olaide.agboola',
-			phone_number: '123456766'
-		};
+		
 		$scope.signup = function() {
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model

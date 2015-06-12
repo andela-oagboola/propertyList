@@ -55,7 +55,7 @@ module.exports = {
 
   //get property created by particular user
   getUserProperty: function (req, res) {
-    Property.findById(req.params.userId).populate('posted_by').exec(function (err, userProperties) {
+    Property.find({posted_by: req.params.userId}).populate('posted_by').exec(function (err, userProperties) {
       if(err) {
         res.status(400).send(err);
       }

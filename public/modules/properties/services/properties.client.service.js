@@ -33,6 +33,10 @@ angular.module('properties').factory('backendService', ['$http', '$upload', func
 
     contactAgent: function (propertyId, property) {
       return $http.post('/properties/' + propertyId + '/contactAgent', property);
+    },
+
+    getUserProperties: function (userId) {
+      return $http.get('/properties/user/' + userId);
     }
   };
 }]);

@@ -66,6 +66,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		state('home', {
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
+		})
+		.state('userProperites', {
+			url: '/properties/users/:userId',
+			templateUrl: 'modules/properties/views/userProperties.client.view.html',
+			controller: 'UserProperties'
 		});
 	}
 ]);
@@ -422,6 +427,10 @@ angular.module('properties').controller('PropertiesCtrl', ['$scope', 'backendSer
   backendService.getProperties().success(function(properties) {
     $scope.properties = properties;
   });
+}]);
+'use strict';
+angular.module('properties').controller('UserProperties', ['$scope', function($scope){
+  console.log('ma');
 }]);
 'use strict';
 angular.module('properties').controller('ViewPropertyCtrl', ['Authentication', '$scope', '$location', '$stateParams', 'backendService', function(Authentication, $scope, $location, $stateParams, backendService) {

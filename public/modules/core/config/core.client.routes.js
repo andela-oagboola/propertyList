@@ -14,7 +14,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		})
 		.state('userProperites', {
 			url: '/properties/users/:userId',
-			templateUrl: 'modules/properties/views/userProperties.client.view.html'
+			templateUrl: 'modules/properties/views/userProperties.client.view.html',
+			controller: 'UserProperties'
 		});
 	}
 ]);

@@ -6,7 +6,6 @@ angular.module('properties').controller('UserProperties', ['Authentication', '$s
     $location.path('/');
   }
   backendService.getUserProperties($scope.user._id).success(function (response) {
-    console.log(response);
     $scope.properties = response;
   });
 }]);

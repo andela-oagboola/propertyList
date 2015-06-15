@@ -64,7 +64,7 @@
 		  <div class="nav-wrapper col s12">
 		    <a href="/#!/" class="brand-logo">Quick Sale</a>
 		    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-		    <ul class="right hide-on-med-and-down">
+		    <ul class="right hide-on-med-and-down" ng-show="authentication.user">
 		    	<li><a href="/#!/properties/users/{{authentication.user._id}}">My properties</a></li>
 		    	<li><a href="/auth/signout">Signout</a></li>
 		      <li><a><i class="mdi-navigation-menu"></i></a></li>

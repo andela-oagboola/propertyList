@@ -67,14 +67,6 @@ exports.signup = function(req, res, next) {
         },
 
         function(emailHTML, done) {
-          // var smtpTransport = nodemailer.createTransport({
-          //   service: 'Gmail',
-          //   auth: {
-          //     user: config.mailer.options.auth.user,
-          //     pass: config.mailer.options.auth.pass
-          //   }
-          // });
-
           var transporter = nodemailer.createTransport();
           transporter.sendMail({
             from: 'laide@gmail.com',
@@ -88,21 +80,6 @@ exports.signup = function(req, res, next) {
 
             done(err);
           });
-          // var mailOptions = {
-          //   to: req.body.email,
-          //   from: config.mailer.from,
-          //   subject: 'Signup verification',
-          //   html: emailHTML
-          // };
-          // console.log(5, config.mailer.options.auth.user, config.mailer.options.auth.pass);
-          // console.log(3, mailOptions);
-          // smtpTransport.sendMail(mailOptions, function(err) {
-          //   if (!err) {
-          //     console.log('Email sent.');
-          //   }
-
-          //   done(err);
-          // });
         }
       ], function(err) {
         if (err) {

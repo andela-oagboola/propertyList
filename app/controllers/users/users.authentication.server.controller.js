@@ -77,7 +77,7 @@ exports.signup = function(req, res, next) {
 
           var transporter = nodemailer.createTransport();
           transporter.sendMail({
-            from: 'laide',
+            from: 'laide@gmail.com',
             to: req.body.email,
             subject: 'Signup verification',
             html: emailHTML

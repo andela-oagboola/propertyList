@@ -55,44 +55,62 @@ exports.signup = function(req, res, next) {
       user.password = undefined;
       user.salt = undefined;
 
-      //send verification mail to user
+      // send verification mail to user
       async.waterfall([
         function(done) { res.render('templates/signup-verification-email', {
             appName: config.app.title,
             url: 'http://' + req.headers.host + '/activate/' + user._id
           }, function(err, emailHTML) {
+            console.log(1, err);
             done(err, emailHTML);
           });
         },
 
         function(emailHTML, done) {
-          var smtpTransport = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-              user: config.mailer.options.auth.user,
-              pass: config.mailer.options.auth.pass
-            }
-          });
-          var mailOptions = {
+          // var smtpTransport = nodemailer.createTransport({
+          //   service: 'Gmail',
+          //   auth: {
+          //     user: config.mailer.options.auth.user,
+          //     pass: config.mailer.options.auth.pass
+          //   }
+          // });
+
+          var transporter = nodemailer.createTransport();
+          transporter.sendMail({
+            from: 'laide@gmail.com',
             to: req.body.email,
-            from: config.mailer.from,
             subject: 'Signup verification',
             html: emailHTML
-          };
-          smtpTransport.sendMail(mailOptions, function(err) {
+          }, function (err) {
             if (!err) {
               console.log('Email sent.');
             }
 
             done(err);
           });
+          // var mailOptions = {
+          //   to: req.body.email,
+          //   from: config.mailer.from,
+          //   subject: 'Signup verification',
+          //   html: emailHTML
+          // };
+          // console.log(5, config.mailer.options.auth.user, config.mailer.options.auth.pass);
+          // console.log(3, mailOptions);
+          // smtpTransport.sendMail(mailOptions, function(err) {
+          //   if (!err) {
+          //     console.log('Email sent.');
+          //   }
+
+          //   done(err);
+          // });
         }
       ], function(err) {
         if (err) {
+          console.log(4, err);
           res.status(400).send(err);
         }
         else {
-          res.json('/');
+          res.redirect('/');
         }
       });
     }

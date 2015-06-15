@@ -429,8 +429,16 @@ angular.module('properties').controller('PropertiesCtrl', ['$scope', 'backendSer
   });
 }]);
 'use strict';
-angular.module('properties').controller('UserProperties', ['$scope', function($scope){
-  console.log('ma');
+angular.module('properties').controller('UserProperties', ['Authentication', '$scope', 'backendService', '$location', function(Authentication, $scope, backendService, $location){
+  $scope.user = Authentication.user;
+  if (!$scope.user) {
+    alert('you have to be logged in');
+    $location.path('/');
+  }
+  backendService.getUserProperties($scope.user._id).success(function (response) {
+    console.log(response);
+    $scope.properties = response;
+  });
 }]);
 'use strict';
 angular.module('properties').controller('ViewPropertyCtrl', ['Authentication', '$scope', '$location', '$stateParams', 'backendService', function(Authentication, $scope, $location, $stateParams, backendService) {
@@ -488,6 +496,10 @@ angular.module('properties').factory('backendService', ['$http', '$upload', func
 
     contactAgent: function (propertyId, property) {
       return $http.post('/properties/' + propertyId + '/contactAgent', property);
+    },
+
+    getUserProperties: function (userId) {
+      return $http.get('/properties/user/' + userId);
     }
   };
 }]);

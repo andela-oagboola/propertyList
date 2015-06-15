@@ -61,6 +61,8 @@ exports.signup = function(req, res, next) {
             appName: config.app.title,
             url: 'http://' + req.headers.host + '/activate/' + user._id
           }, function(err, emailHTML) {
+            console.log(1, err);
+            console.log(2, emailHTML);
             done(err, emailHTML);
           });
         },
@@ -79,6 +81,7 @@ exports.signup = function(req, res, next) {
             subject: 'Signup verification',
             html: emailHTML
           };
+          console.log(3, mailOptions);
           smtpTransport.sendMail(mailOptions, function(err) {
             if (!err) {
               console.log('Email sent.');
@@ -89,10 +92,11 @@ exports.signup = function(req, res, next) {
         }
       ], function(err) {
         if (err) {
+          console.log(4, err);
           res.status(400).send(err);
         }
         else {
-          res.json('/');
+          res.redirect('/');
         }
       });
     }

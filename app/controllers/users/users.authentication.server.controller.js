@@ -81,6 +81,7 @@ exports.signup = function(req, res, next) {
             subject: 'Signup verification',
             html: emailHTML
           };
+          console.log(5, config.mailer.options.auth.user, config.mailer.options.auth.pass);
           console.log(3, mailOptions);
           smtpTransport.sendMail(mailOptions, function(err) {
             if (!err) {

@@ -1,6 +1,6 @@
 .propertyImage {
-  width: 370px;
-  height: 220px;
+  width: 100%;
+  height: 100%;
 }
 
 .property {
@@ -40,6 +40,7 @@
 .propertyImageCard {
   margin: 0;
   border-radius: 0;
+  padding: 0;
 }
 
 .cardMargin {
@@ -47,7 +48,7 @@
 }
 
 .propertyDetails {
-  border-bottom: 2px solid #0c133a;
+  border-bottom: 2px solid #A58F8C;
   max-height: 190px;
   min-height: 190px;
   overflow: auto;
@@ -64,4 +65,8 @@
 
 .tools {
   padding-top: 10px;
+}
+
+.addPropertyForm {
+  margin-top: 75px;
 }

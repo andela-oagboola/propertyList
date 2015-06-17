@@ -14,18 +14,23 @@ cloudinary.config({
   api_secret: config.cloudinary.apiSecret
 });
 
+console.log('cloudinary name',config.cloudinary.cloudName);
+console.log('cloudinary apiKey', config.cloudinary.apiKey);
+console.log('cloudinary secret', config.cloudinary.apiSecret);
 module.exports = {
 
   //create a new property
   create: function (req, res) {
     var property = JSON.parse(req.body.data);
     property.image = req.img;
+    console.log('image url on req body', req.img);
     property.posted_by = req.user._id;
     Property.create(property, function(err, new_property) {
       if (err) {
         res.status(400).send(err);
       }
       else {
+        console.log('property created', new_property);
         res.json(new_property);
       }
     });
@@ -91,9 +96,11 @@ module.exports = {
   },
 
   uploadImage: function (req, res, next) {
+    console.log(req.files.path);
     if (req.files.file) {
       var path = req.files.file.path;
       cloudinary.uploader.upload(path, function (response) {
+        console.log('response from cloudinary', response);
         req.img = response.url;
         next();
       });

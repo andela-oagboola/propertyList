@@ -11,7 +11,6 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
 
   var getProperty = function () {
     backendService.getSingleProperty($stateParams.propertyId).success(function (res) {
-      console.log(res);
       $scope.properties = res;
     });
   };

@@ -7,15 +7,17 @@
       <div class="row right-align">
         <a class="waves-effect waves-light btn" ng-show="editImage" ng-click="edit_image()">Edit Image</a>
         <div ng-show="allowEdit">
-          <div class="file-field input-field">
-            <input class="file-path validate" type="text" ng-model="fileName" disabled />
-              <div class="btn">
-                <span>Image</span>
-                <input type="file" name="pic" data-ng-file-select="onFileSelect($files)" accept="image/*"/>
-              </div>
-          </div>
-          <a class="waves-effect waves-light btn" ng-click="cancelEdit()">Cancel</a>
-          <a class="waves-effect waves-light btn" ng-click="updateImage()">Update</a>
+          <form name="updateImage">
+            <div class="file-field input-field">
+              <input class="file-path validate" type="text" ng-model="fileName" disabled required/>
+                <div class="btn">
+                  <span>Image</span>
+                  <input type="file" name="pic" data-ng-file-select="onFileSelect($files)" accept="image/*"/>
+                </div>
+            </div>
+            <a class="waves-effect waves-light btn" ng-click="cancelEdit()">Cancel</a>
+            <input type="button" class="waves-effect waves-light btn" ng-click="updateImage()" value="Update" ng-disabled="updateImage.$invalid">
+          </form>
         </div>
       </div>
       

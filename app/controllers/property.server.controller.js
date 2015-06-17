@@ -66,11 +66,16 @@ module.exports = {
   },
 
   update: function (req, res) {
+    var property = req.body;
     if(req.img) {
       req.body.image = req.img;
     }
-    Property.findByIdAndUpdate(req.params.propertyId, req.body, function(err, property) {
+    else {
+      property.posted_by = req.body.posted_by._id;
+    }
+    Property.findByIdAndUpdate(req.params.propertyId, property, function(err, property) {
       if (err) {
+        console.log(err);
         res.status(400).send(err);
       }
       else {

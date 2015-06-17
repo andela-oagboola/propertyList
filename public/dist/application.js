@@ -374,7 +374,8 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
 
   var getProperty = function () {
     backendService.getSingleProperty($stateParams.propertyId).success(function (res) {
-      $scope.properties = res[0];
+      console.log(res);
+      $scope.properties = res;
     });
   };
   getProperty();
@@ -406,8 +407,8 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
       $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
     }).success(function (data, status, headers, config) {
       $scope.fileName = '';
-      getProperty();
       alert('image update successful');
+      getProperty();
     });
   };
 
@@ -436,7 +437,6 @@ angular.module('properties').controller('UserProperties', ['Authentication', '$s
     $location.path('/');
   }
   backendService.getUserProperties($scope.user._id).success(function (response) {
-    console.log(response);
     $scope.properties = response;
   });
 }]);

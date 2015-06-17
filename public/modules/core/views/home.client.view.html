@@ -17,7 +17,7 @@
                       <img ng-src="{{property.image}}">
                     </div>
                     <div class="card-content">
-                      <span class="card-title red-text" >{{property.title}}</span>
+                      <span class="card-title red-text" ><a href="/#!/properties/{{property._id}}" style="color:red">{{property.title}}</a></span>
                       <p>{{property.description | limitTo: 70}}.....</p>
                     </div>
                   </div>
@@ -79,7 +79,7 @@
           </nav>
         </div>
         <div class="row loginBody" style="padding: 10px;">
-          <p class=" valign">Welcome to QUicksale, we have a variety of properties for sale, feel free to check and make your choice</p>
+          <p class=" valign">Welcome to Quicksale, we have a variety of properties for sale, feel free to check and make your choice</p>
         </div>
       </div>
     </div>

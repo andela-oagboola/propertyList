@@ -11,9 +11,10 @@ angular.module('properties').controller('ContactAgentCtrl', ['$location', '$scop
   $scope.mailContent = {};
 
   backendService.getSingleProperty($stateParams.propertyId).success(function (property) {
-    $scope.property = property[0];
+    $scope.property = property;
   });
   $scope.sendMail = function () {
+    $scope.loading = true;
     $scope.mailContent = {
       receiverEmail: $scope.property.email,
       senderEmail: $scope.user.email,
@@ -22,8 +23,11 @@ angular.module('properties').controller('ContactAgentCtrl', ['$location', '$scop
       message: $scope.mailContent.message
     };
     backendService.contactAgent($stateParams.propertyId, $scope.mailContent).success(function (ee) {
-      console.log(ee);
-      alert('done');
+      $scope.loading = false;
+      alert('Email sent successfully');
+      return $location.path('/properties');
+    }).error(function(err) {
+      alert('Error sending mail, please try again ', err);
     });
   };
 }]);

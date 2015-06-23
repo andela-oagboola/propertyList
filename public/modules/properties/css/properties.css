@@ -67,10 +67,14 @@
   padding-top: 10px;
 }
 
-.addPropertyForm {
-  margin-top: 75px;
+.progressWrapper {
+  margin-top: 60px;
 }
 
 .viewPropertyWrapper {
   margin-top: 60px;
+}
+
+.contactPreloader {
+  margin-top: 200px;
 }

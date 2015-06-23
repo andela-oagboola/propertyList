@@ -14,6 +14,7 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', 'Authent
   };
 
   $scope.createProperty = function () {
+    $scope.loading = true;
     $scope.file = $scope.files[0];
     backendService.uploadImage($scope.file, 'POST', '/properties', $scope.properties).progress(function (evt) {
       $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);

@@ -10,6 +10,8 @@ var _ = require('lodash'),
   async = require('async'),
   nodemailer = require('nodemailer'),
   config = require('../../../config/config'),
+  mandrill = require('mandrill-api/mandrill'),
+  mandrill_client = new mandrill.Mandrill('yyImU4c6tAZasTqA57mvpw'),
   User = mongoose.model('User');
 
 /**
@@ -55,41 +57,44 @@ exports.signup = function(req, res, next) {
       user.password = undefined;
       user.salt = undefined;
 
-      // send verification mail to user
+      //send verification mail to user
       async.waterfall([
+        
         function(done) { res.render('templates/signup-verification-email', {
             appName: config.app.title,
             url: 'http://' + req.headers.host + '/activate/' + user._id
           }, function(err, emailHTML) {
-            console.log(1, err);
+            console.log('error rendering template', err);
             done(err, emailHTML);
           });
         },
 
         function(emailHTML, done) {
-          var transporter = nodemailer.createTransport();
-          transporter.sendMail({
-            from: 'laide@gmail.com',
-            to: req.body.email,
-            subject: 'Signup verification',
-            html: emailHTML
-          }, function (err) {
-            if (!err) {
-              console.log('Email sent.');
-            }
-
-            done(err);
+          var message = {
+            'html': emailHTML,
+            'subject': 'Signup verification',
+            'from_email': 'laide@gmail.com',
+            'from_name': 'QuickSale',
+            'to': [{
+                    'email': req.body.email
+                }],
+            'important': false
+          };
+          mandrill_client.messages.send({'message':message}, function (result) {
+            console.log(result);
+            res.send(result);
+          }, function(e) {
+            console.log('error from mail client', e.name, e.message);
           });
         }
       ], function(err) {
         if (err) {
-          console.log(4, err);
-          res.status(400).send(err);
-        }
-        else {
-          res.redirect('/');
+          console.log('error sending mail', err);
         }
       });
+
+
+
     }
   });
 };

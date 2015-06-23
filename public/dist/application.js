@@ -319,6 +319,7 @@ angular.module('properties').controller('addPropertiesCtrl', ['$scope', 'Authent
   };
 
   $scope.createProperty = function () {
+    $scope.loading = true;
     $scope.file = $scope.files[0];
     backendService.uploadImage($scope.file, 'POST', '/properties', $scope.properties).progress(function (evt) {
       $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
@@ -345,9 +346,10 @@ angular.module('properties').controller('ContactAgentCtrl', ['$location', '$scop
   $scope.mailContent = {};
 
   backendService.getSingleProperty($stateParams.propertyId).success(function (property) {
-    $scope.property = property[0];
+    $scope.property = property;
   });
   $scope.sendMail = function () {
+    $scope.loading = true;
     $scope.mailContent = {
       receiverEmail: $scope.property.email,
       senderEmail: $scope.user.email,
@@ -356,8 +358,11 @@ angular.module('properties').controller('ContactAgentCtrl', ['$location', '$scop
       message: $scope.mailContent.message
     };
     backendService.contactAgent($stateParams.propertyId, $scope.mailContent).success(function (ee) {
-      console.log(ee);
-      alert('done');
+      $scope.loading = false;
+      alert('Email sent successfully');
+      return $location.path('/properties');
+    }).error(function(err) {
+      alert('Error sending mail, please try again ', err);
     });
   };
 }]);
@@ -399,7 +404,7 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
     $scope.isDisabled = false;
   };
 
-  $scope.updateImage = function () {
+  $scope.update_Image = function () {
     var property = {image: $scope.fileName};
     var url = '/properties/' + $stateParams.propertyId;
     backendService.uploadImage($scope.newFile, 'PUT', url).progress(function (evt) {
@@ -408,6 +413,8 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
       $scope.fileName = '';
       alert('image update successful');
       getProperty();
+    }).error(function(err) {
+      alert('error updating image:', err);
     });
   };
 
@@ -417,7 +424,7 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
       alert('update successful');
       $location.path('/properties/' + $stateParams.propertyId);
     }).error(function (err) {
-      console.log('err', err);
+      alert('error updating property:', err);
     });
   };
 }]);

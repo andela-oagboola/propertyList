@@ -36,7 +36,7 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
     $scope.isDisabled = false;
   };
 
-  $scope.updateImage = function () {
+  $scope.update_Image = function () {
     var property = {image: $scope.fileName};
     var url = '/properties/' + $stateParams.propertyId;
     backendService.uploadImage($scope.newFile, 'PUT', url).progress(function (evt) {
@@ -45,6 +45,8 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
       $scope.fileName = '';
       alert('image update successful');
       getProperty();
+    }).error(function(err) {
+      alert('error updating image:', err);
     });
   };
 
@@ -54,7 +56,7 @@ angular.module('properties').controller('EditPropertyCtrl', ['Authentication', '
       alert('update successful');
       $location.path('/properties/' + $stateParams.propertyId);
     }).error(function (err) {
-      console.log('err', err);
+      alert('error updating property:', err);
     });
   };
 }]);

@@ -1,5 +1,5 @@
 body {
-  background: url('http://res.cloudinary.com/drl4zlijn/image/upload/v1434056791/subtle_white_mini_waves_f5igs7.png') no-repeat center center fixed;
+  background: url('http://res.cloudinary.com/drl4zlijn/image/upload/v1435135762/crossword_ltc6pm.png') no-repeat center center fixed;
   background-size: 100%
 }
 .content {
@@ -46,4 +46,13 @@ body {
 
 .headings {
   border-left: 5px solid #0c133a;
+}
+
+.navlinks {
+  font-weight: 100;
+}
+
+.rightSideNav {
+  background-color: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }

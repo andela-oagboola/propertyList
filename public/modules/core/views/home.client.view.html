@@ -7,7 +7,7 @@
         <div class="col s12">
           <div class="card darken-1 propertiesCard">
             <blockquote class="headings">
-              <h4 class="teal-text">Recent properties</h4>
+              <h4 class="red-text">Recent properties</h4>
             </blockquote>
             <div class="card-content">
               <div ng-repeat="property in properties | limitTo: 4">
@@ -25,26 +25,21 @@
               </div>
             </div>
             <div class="card-action right-align ">
-              <a href="/#!/properties">View More</a>
+              <a href="/#!/properties" style="color: #0c133a; font-weight: bold">View More</a>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="col s4">
       <div ng-hide="authentication.user"> 
-        <div class="row">
+        <div class="row rightSideNav">
           <nav>
-            <div class="nav-wrapper">
-              <a class="brand-logo center" style="font-size: 24px">Create an account</a>
+            <div class="nav-wrapper topNav">
+              <a class="brand-logo center" style="font-size: 24px">Login</a>
             </div>
           </nav>
-        </div>
-        <div class="row loginBody">
-          <div class="col s12">
-
-          <div class="row center-align teal-text"><h5>Login</h5></div>
-
           <div class="row">
             <form data-ng-submit="signin()" name="login">
               <div class="row">
@@ -56,32 +51,33 @@
                   <input id="first_name" type="password" class="validate" data-ng-model="credentials.password" required>
                   <label for="first_name">password</label>
                 </div>
-                <input type="submit" value="login" class="waves-effect waves-light btn" type="submit" ng-disabled="login.$invalid"/>
+                <div class="center-align">
+                  <input type="submit" value="login" class="waves-effect waves-light btn" type="submit" ng-disabled="login.$invalid"/>
+                </div>
               </div>
             </form>
-          </div>
-
-          <div class="row center-align" ui-route="/signup" ng-class="{active: $uiRoute}" data-ng-hide="authentication.user">New on Quicksale? <a href="/#!/signup">Sign Up to continue</a></div>
+            <div class="row center-align" ui-route="/signup" ng-class="{active: $uiRoute}" data-ng-hide="authentication.user">New on Quicksale? <a href="/#!/signup">Sign Up to continue</a></div>
+            </div>
           </div>
         </div>
         <!-- <div class="forgot-password">
           <a href="/#!/password/forgot">Forgot your password?</a>
-        </div> -->
-      </div>
-
+        </div> 
+      </div>   -->
 
       <div ng-show="authentication.user"> 
-        <div class="row">
+        <div class="row rightSideNav">
           <nav>
             <div class="nav-wrapper topNav">
               <a class="brand-logo center" style="font-size: 24px">Welcome</a>
             </div>
           </nav>
-        </div>
-        <div class="row loginBody" style="padding: 10px;">
-          <p class=" valign">Welcome to Quicksale, we have a variety of properties for sale, feel free to check and make your choice</p>
+          <div class="row">
+            <p class=" valign">Welcome to Quicksale, we have a variety of properties for sale, feel free to check and make your choice</p>
+          </div>
         </div>
       </div>
+      
     </div>
   </div>
 </div>

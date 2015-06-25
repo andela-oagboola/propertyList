@@ -1,26 +1,37 @@
 <div class="row">
-  <div class="col s12">
-    <div class="row viewPropertyWrapper">
-      <div class="col s6"><img ng-src="{{property.image}}" class="property"></div>
-      <div class="col s6">
-        <div class="row">
-          <p>{{property.title}}</p>
-          <p>{{property.price}}</p>
-          <p>{{property.posted_at | date}}</p>
-        </div>
-        <div class="row">
-          <a href="/#!/properties/{{property._id}}/edit" class="waves-effect waves-light btn" ng-show="user._id===owner">Edit</a>
-          <a class="waves-effect waves-light btn" ng-click="deleteProperty()" ng-show="user._id===owner">Delete</a>
-          <a class="waves-effect waves-light btn" href="/#!/properties/{{property._id}}/contact-agent" ng-hide="user._id===owner">Contact agent</a>
-        </div>
+
+  <div class="col s6 offset-s1 propertyCardView">
+    <div class="card">
+      <div class="card-image waves-effect waves-block waves-light" style="height:auto">
+        <img ng-src="{{property.image}}" class="activator">
       </div>
-    </div>
-    <div class="row">
-      <div class="col s12">
-        <p>{{property.description}}</p>
-        <p>{{property.street}},{{property.city}}, {{property.state}}</p>
-        <p>{{property.posted_by.displayName}}</p>
+
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4"><p class="red-text">{{property.title}}</p>
+          <i class="mdi-navigation-more-vert right"></i>
+          <span style="font-size:20px">
+            <p><span style="font-weight:bold">Address:</span> {{property.street}},{{property.city}}, {{property.state}}</p>
+            <p><span style="font-weight:bold">Posted By:</span> {{property.posted_by.displayName}}</p>
+          </span>
+        </span>
+      </div>
+
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">
+          <i class="mdi-navigation-close right"></i><p>{{property.title}}</p>
+        </span>
+        <p>Map</p>
       </div>
     </div>
   </div>
+
+  <div class="col s3 offset-s1 propertyDetailsWrapper center-align">
+    <p><span style="font-weight:bold">Description:</span> <br><br> {{property.description}}</p><br>
+    <p><span style="font-weight:bold">Price: </span> <br><br> {{property.price}}</p><br>
+    <p><span style="font-weight:bold">Posted on: </span> <br><br> {{property.posted_at | date}}</p><br><br><hr><br><br>
+    <a href="/#!/properties/{{property._id}}/edit" class="waves-effect waves-light btn" ng-show="user._id===owner">Edit</a>
+    <a class="waves-effect waves-light btn" ng-click="deleteProperty()" ng-show="user._id===owner">Delete</a>
+    <a class="waves-effect waves-light btn" href="/#!/properties/{{property._id}}/contact-agent" ng-hide="user._id===owner">Contact agent</a><br><br>
+  </div>
+
 </div>

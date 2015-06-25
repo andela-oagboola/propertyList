@@ -1,8 +1,12 @@
 <div class="row">
-  <div class="col s6">
-    <div class="row">Conatct Agent</div>
+  <div class="col s6 offset-s3 center-align contactFormWrapper topNav" style="padding:0">
 
     <div class="row">
+      <nav>
+        <div class="nav-wrapper " style="background-color:#0c133a;">
+          <a class="brand-logo center" style="font-size: 24px;">Contact</a>
+        </div>
+      </nav>
       <form name="contactAgent" novalidate>
         <div class="input-field row">
           <i class="mdi-image-timer-auto prefix"></i>
@@ -26,14 +30,14 @@
           <label for="message">Message</label>
           <span class="errorMessage" ng-show="addProperty.message.$error.required &amp;&amp; addProperty.message.$dirty">Description cannot be empty</span>
         </div>
-        <div class="input-field row right-align">
+        <div class="input-field row center-align">
           <input type="button" class="waves-effect waves-light btn" ng-click="sendMail()" ng-disabled="contactAgent.$invalid || loading" value="Send Mail"/>
         </div>
       </form>
     </div>
   </div>
 
-  <div class="col s3 offset-s3 contactPreloader" ng-show="loading">
+  <div class="col s2 offset-s1 contactPreloader" ng-show="loading">
     <div class="preloader-wrapper big active">
         <div class="spinner-layer spinner-red-only">
           <div class="circle-clipper left">

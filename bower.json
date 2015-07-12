@@ -11,6 +11,7 @@
     "angular-ui-utils": "~0.1.1",
     "angular-ui-router": "~0.2.11",
     "ng-file-upload": "3.2.4",
-    "materialize": "~0.96.1"
+    "materialize": "~0.96.1",
+    "angular-google-maps": "~2.1.5"
   }
 }

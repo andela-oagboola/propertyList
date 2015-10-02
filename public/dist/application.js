@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'propertylist';
-	var applicationModuleVendorDependencies = ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngFileUpload'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngFileUpload', 'uiGmapGoogleMapApi'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
@@ -27,9 +27,14 @@ var ApplicationConfiguration = (function() {
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
 // Setting HTML5 Location Mode
-angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
-	function($locationProvider) {
+angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider', 'uiGmapGoogleMapApiProvider',
+	function($locationProvider, uiGmapGoogleMapApiProvider) {
 		$locationProvider.hashPrefix('!');
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyBfaxjCgRt9vPG21PhIJ_wcClgC1dTsWPA',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+    });
 	}
 ]);
 
@@ -447,13 +452,20 @@ angular.module('properties').controller('UserProperties', ['Authentication', '$s
   });
 }]);
 'use strict';
-angular.module('properties').controller('ViewPropertyCtrl', ['Authentication', '$scope', '$location', '$stateParams', 'backendService', function(Authentication, $scope, $location, $stateParams, backendService) {
+angular.module('properties').controller('ViewPropertyCtrl', ['Authentication', '$scope', '$location', '$stateParams', 'backendService', 'uiGmapGoogleMapApi', function(Authentication, $scope, $location, $stateParams, backendService, uiGmapGoogleMapApi) {
   $scope.user = Authentication.user;
   backendService.getSingleProperty($stateParams.propertyId).success(function (property) {
     $scope.property = property;
     $scope.owner = $scope.property.posted_by._id;
   });
 
+
+  uiGmapGoogleMapApi.then(function(maps) {
+    $scope.map = {
+      zoom: 8,
+      center: {lat: -34.397, lng: 150.644}
+    };
+  });
   $scope.deleteProperty = function () {
     var response = confirm('are you sure you want to delete this property?');
     if (response === true) {

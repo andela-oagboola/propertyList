@@ -58,6 +58,7 @@
 	</script>
 
 	<!--Application JavaScript Files-->
+	<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
 	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
 
 	{% if process.env.NODE_ENV === 'development' %}

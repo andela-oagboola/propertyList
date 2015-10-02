@@ -8,7 +8,7 @@
 
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4"><p class="red-text">{{property.title}}</p>
-          <i class="mdi-navigation-more-vert right"></i>
+          <i ng-click="" class="mdi-navigation-more-vert right"></i>
           <span style="font-size:20px">
             <p><span style="font-weight:bold">Address:</span> {{property.street}},{{property.city}}, {{property.state}}</p>
             <p><span style="font-weight:bold">Posted By:</span> {{property.posted_by.displayName}}</p>
@@ -20,7 +20,14 @@
         <span class="card-title grey-text text-darken-4">
           <i class="mdi-navigation-close right"></i><p>{{property.title}}</p>
         </span>
-        <p>Map</p>
+        <div>
+          <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
+
+            <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+            </ui-gmap-marker>
+
+          </ui-gmap-google-map>
+        </div>
       </div>
     </div>
   </div>
@@ -35,3 +42,14 @@
   </div>
 
 </div>
+
+
+
+<div>
+    <!-- <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'>
+
+      <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+      </ui-gmap-marker>
+
+    </ui-gmap-google-map> -->
+  </div>

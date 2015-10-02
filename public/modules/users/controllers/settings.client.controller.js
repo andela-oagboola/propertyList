@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'users', 'Authentication',
+	function($scope, $http, $location, users, Authentication) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
@@ -22,7 +22,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		};
 
 		// Remove a user social account
-		$scope.removeUserSocialAccount = function(provider) {
+		$scope.removeusersocialAccount = function(provider) {
 			$scope.success = $scope.error = null;
 
 			$http.delete('/users/accounts', {
@@ -42,7 +42,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		$scope.updateUserProfile = function(isValid) {
 			if (isValid) {
 				$scope.success = $scope.error = null;
-				var user = new Users($scope.user);
+				var user = new users($scope.user);
 
 				user.$update(function(response) {
 					$scope.success = true;
